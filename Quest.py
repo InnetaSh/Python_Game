@@ -28,7 +28,8 @@ class Quest:
                 player.potions += self.bonus
                 print(f"{player.name} получает +{self.bonus} к зелью!")
             else:
-                print(f"{player.name} получает бонус: {self.bonus} к {self.type_quest} (неизвестный параметр)")
+                player.attack += self.bonus
+                print(f"{player.name} получает +{self.bonus} к урону!")
 
 class NPC:
     def __init__(self, name, quest=None):
@@ -54,7 +55,6 @@ class NPC:
             choice = input("Принять квест? (да - 1/нет - 2): ").lower()
             if choice == "1":
                 print("Квест принят!")
-                player.active_quests.append(self.quest)
                 return 1
             else:
                 print("Может в другой раз.")

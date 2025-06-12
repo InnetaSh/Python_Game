@@ -20,6 +20,36 @@ class Character(User):
         self.potions = 2
         self.active_quests = []
 
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "hp": self.hp,
+            "mp": self.mp,
+            "attack": self.attack,
+            "defense": self.defense,
+            "char_class": self.char_class,
+            "level": self.level,
+            "exp": self.exp,
+            "potions": self.potions,
+            "active_quests": self.active_quests,
+
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        char = cls(data["name"], data["char_class"])
+        char.hp = data["hp"]
+        char.mp = data["mp"]
+        char.attack = data["attack"]
+        char.defense = data["defense"]
+        char.level = data["level"]
+        char.exp = data["exp"]
+        char.potions = data["potions"]
+        char.active_quests = data["active_quests"]
+        return char
+
+
+
     def attack_enemy(self, enemy):
         damage = random.randint(self.attack - 5, self.attack + 5)
         enemy.take_damage(damage)
