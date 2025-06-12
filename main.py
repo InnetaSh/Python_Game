@@ -150,7 +150,13 @@ def main():
 
 
     while quests_data:
-        quest_id = random.choice(list(quests_data.keys()))
+        available_quests = [qid for qid in quests_data.keys() if qid not in player.active_quests]
+
+        if not available_quests:
+            print("Пока нет новых доступных квестов.")
+            break
+
+        quest_id = random.choice(available_quests)
         quest, npc, enemy = quests_data[quest_id]
 
         npc.quest = quest
@@ -163,7 +169,6 @@ def main():
                 if quest_id not in player.active_quests:
                     player.active_quests.append(quest_id)
                 quest.complete(player)
-                del quests_data[quest_id]
                 save_file(player, filePath_user)
             else:
                 return
